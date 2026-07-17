@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Employee</title>
+
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: linear-gradient(135deg, #43cea2, #185a9d);
+}
+
+.container {
+	width: 700px;
+	background: #fff;
+	padding: 30px;
+	border-radius: 12px;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, .25);
+	text-align: center;
+}
+
+h2 {
+	color: #2c3e50;
+	margin-bottom: 25px;
+}
+
+.main-buttons {
+	display: flex;
+	gap: 15px;
+	margin-bottom: 25px;
+}
+
+.main-buttons button {
+	flex: 1;
+	padding: 12px;
+	border: none;
+	border-radius: 6px;
+	background: #3498db;
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: .3s;
+}
+
+.main-buttons button:hover {
+	background: #2980b9;
+}
+
+#idSection, #sortSection {
+	display: none;
+	margin-top: 20px;
+}
+
+label {
+	display: block;
+	text-align: left;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+input {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 15px;
+	margin-bottom: 20px;
+}
+
+.sort-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 10px;
+	margin-top: 15px;
+}
+
+.sort-grid button {
+	padding: 10px;
+	border: none;
+	border-radius: 6px;
+	background: #16a085;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+	transition: .3s;
+}
+
+.selected {
+	background: #f39c12 !important;
+	color: white !important;
+	transform: scale(1.05);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.sort-grid button:hover {
+	background: #138d75;
+}
+
+.action-buttons {
+	display: flex;
+	gap: 10px;
+	margin-top: 25px;
+}
+
+.action-buttons button {
+	flex: 1;
+	padding: 12px;
+	border: none;
+	border-radius: 6px;
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.search-btn {
+	background: #27ae60;
+}
+
+.search-btn:hover {
+	background: #1e8449;
+}
+
+.back-btn {
+	background: #e74c3c;
+}
+
+.back-btn:hover {
+	background: #c0392b;
+}
+</style>
+
+<script>
+	function removeSelection(group) {
+
+		let buttons = document.querySelectorAll(group);
+
+		buttons.forEach(function(btn) {
+			btn.classList.remove("selected");
+		});
+
+	}
+
+	function showId(button) {
+
+		removeSelection(".main-buttons button");
+
+		button.classList.add("selected");
+
+		document.getElementById("idSection").style.display = "block";
+		document.getElementById("sortSection").style.display = "none";
+
+	}
+
+	function showSort(button) {
+
+		removeSelection(".main-buttons button");
+
+		button.classList.add("selected");
+
+		document.getElementById("sortSection").style.display = "block";
+		document.getElementById("idSection").style.display = "none";
+
+	}
+
+	function setSort(type, button) {
+
+		document.getElementById("sortType").value = type;
+
+		removeSelection(".sort-grid button");
+
+		button.classList.add("selected");
+
+	}
+</script>
+
+</head>
+
+<body>
+
+	<div class="container">
+
+		<h2>Select Employee Details</h2>
+
+		<div class="main-buttons">
+
+			<button type="button" onclick="showId(this)">Select By ID</button>
+
+			<button type="button" onclick="showSort(this)">Display All
+				Employees</button>
+
+		</div>
+
+		<form action="select" method="post">
+
+			<div id="idSection">
+
+				<label>Enter Employee ID</label> <input type="number" name="id"
+					placeholder="Enter Employee ID" >
+
+			</div>
+
+			<div id="sortSection">
+
+				<h3>Select Sorting Option</h3>
+
+				<input type="hidden" name="sortType" id="sortType">
+
+				<div class="sort-grid">
+
+					<button type="button" onclick="setSort('idAsc',this)">ID ↑</button>
+
+					<button type="button" onclick="setSort('idDesc',this)">ID
+						↓</button>
+
+					<button type="button" onclick="setSort('nameAsc',this)">Name
+						A-Z</button>
+
+					<button type="button" onclick="setSort('nameDesc',this)">Name
+						Z-A</button>
+
+					<button type="button" onclick="setSort('salaryAsc',this)">
+						Salary Low-High</button>
+
+					<button type="button" onclick="setSort('salaryDesc',this)">
+						Salary High-Low</button>
+
+					<button type="button" onclick="setSort('active',this)">Active
+						Employees</button>
+
+					<button type="button" onclick="setSort('inactive',this)">
+						Inactive Employees</button>
+
+
+				</div>
+
+			</div>
+
+			<div class="action-buttons">
+
+
+				<button type="button" class="back-btn"
+					onclick="location.href='index.html'">Go Back</button>
+				<button type="submit" class="search-btn">Search</button>
+
+			</div>
+
+		</form>
+
+	</div>
+
+</body>
+</html>
+
