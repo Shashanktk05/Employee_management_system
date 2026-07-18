@@ -1,124 +1,38 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Employee Management System</title>
-
-<style>
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-body {
-	height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: linear-gradient(135deg, #4facfe, #00f2fe);
-}
-
-.container {
-	width: 420px;
-	background: white;
-	padding: 40px;
-	border-radius: 15px;
-	text-align: center;
-	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-}
-
-h1 {
-	color: #2c3e50;
-	margin-bottom: 10px;
-	font-size: 28px;
-}
-
-hr {
-	border: none;
-	height: 2px;
-	background: #4facfe;
-	margin: 20px auto 30px;
-	width: 80%;
-}
-
-.btn {
-	display: block;
-	width: 100%;
-	padding: 14px;
-	margin: 15px 0;
-	border: none;
-	border-radius: 8px;
-	background: #3498db;
-	color: white;
-	font-size: 17px;
-	font-weight: bold;
-	cursor: pointer;
-	transition: 0.3s;
-}
-
-.btn:hover {
-	background: #2980b9;
-	transform: scale(1.03);
-}
-
-.insert {
-	background: #27ae60;
-}
-
-.insert:hover {
-	background: #1e8449;
-}
-
-.update {
-	background: #f39c12;
-}
-
-.update:hover {
-	background: #d68910;
-}
-
-.delete {
-	background: #e74c3c;
-}
-
-.delete:hover {
-	background: #c0392b;
-}
-
-.select {
-	background: #8e44ad;
-}
-
-.select:hover {
-	background: #6c3483;
-}
-</style>
-
+<link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
 
-	<div class="container">
+	<div class="notion-card">
+		<div class="page-icon">💼</div>
+		<h1 style="text-align: center;">Employee Directory</h1>
+		<p class="editorial-intro" style="text-align: center; max-width: 420px; margin: 0 auto var(--spacing-24) auto;">
+			A warm, minimal workspace to register, inspect, and update employee credentials.
+		</p>
+		
+		<div style="display: flex; flex-direction: column; gap: var(--spacing-12); margin-top: var(--spacing-24);">
+			<button class="btn-primary" onclick="location.href='form.html'">
+				<span style="margin-right: var(--spacing-8);">➕</span> Insert Employee Details
+			</button>
 
-		<h1>Welcome to Employee Management System</h1>
+			<button class="btn-outline" onclick="location.href='update.html'">
+				<span style="margin-right: var(--spacing-8);">✏️</span> Update Employee Data
+			</button>
 
-		<hr>
+			<button class="btn-ghost-cta" onclick="location.href='select.html'">
+				<span style="margin-right: var(--spacing-8);">🔍</span> Search & View Database
+			</button>
 
-		<button class="btn insert" onclick="location.href='form.html'">Insert
-			Employee Details</button>
-
-		<button class="btn update" onclick="location.href='update.html'">Update Employee Data</button>
-
-		<button class="btn delete" onclick="location.href='delete.html'" >Delete Employee Data</button>
-
-		<button class="btn select" onclick="location.href='select.html'">Select Data from Database</button>
-
+			<button class="btn-danger" onclick="location.href='delete.html'">
+				<span style="margin-right: var(--spacing-8);">🗑️</span> Delete Employee Data
+			</button>
+		</div>
 	</div>
 
 </body>
 </html>
-
