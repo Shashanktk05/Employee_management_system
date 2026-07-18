@@ -9,185 +9,131 @@
 <head>
 <meta charset="UTF-8">
 <title>Employee Details</title>
-
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 <style>
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-body {
-	background: linear-gradient(135deg, #43cea2, #185a9d);
-	min-height: 100vh;
-	padding: 30px;
-}
-
-.container {
-	width: 95%;
-	margin: auto;
-	background: white;
-	padding: 25px;
-	border-radius: 10px;
-	box-shadow: 0 8px 20px rgba(0, 0, 0, .25);
-}
-
-h2 {
-	text-align: center;
-	margin-bottom: 20px;
-	color: #2c3e50;
-}
-
-table {
-	width: 100%;
-	border-collapse: collapse;
-	text-align: center;
-}
-
-th {
-	background: #3498db;
-	color: white;
-	padding: 12px;
-}
-
-td {
-	padding: 10px;
-	border: 1px solid #ddd;
-}
-
-tr:nth-child(even) {
-	background: #f2f2f2;
-}
-
-.button {
-	margin-top: 20px;
-	text-align: center;
-}
-
-.button a {
-	text-decoration: none;
-	background: #27ae60;
-	color: white;
-	padding: 10px 20px;
-	border-radius: 6px;
-	font-weight: bold;
-}
-
-.button a:hover {
-	background: #1e8449;
-}
-
-.flexbtn {
-	display: flex;
-	justify-content: center;
-	gap: 25px;
-}
+	body {
+		padding: var(--spacing-32) var(--spacing-20);
+		align-items: flex-start;
+	}
+	.notion-card-wide {
+		margin: 0 auto;
+	}
 </style>
-
 </head>
 <body>
 
-	<div class="container">
+	<div class="notion-card notion-card-wide">
+		<div class="page-icon">👥</div>
+		<h2 style="text-align: center; margin-bottom: var(--spacing-4);">Employee Registry</h2>
+		<p class="editorial-intro" style="text-align: center; margin-bottom: var(--spacing-32);">
+			View active and inactive employee directory details from the database.
+		</p>
 
-		<h2>Employee Details</h2>
-
-		<table>
-
-			<tr>
-				<th>ID</th>
-				<th>Name</th>
-				<th>Age</th>
-				<th>Email</th>
-				<th>Phone Number</th>
-				<th>Address</th>
-				<th>Salary</th>
-				<th>Status</th>
-			</tr>
-
-			<%
-			if ("single".equals(request.getAttribute("type"))) {
-
-				Employee e = (Employee) request.getAttribute("employee");
-
-				if (e == null) {
-			%>
-
-			<tr>
-				<td colspan="8">No Employee Found.</td>
-			</tr>
-
-			<%
-			} else {
-			%>
-
-			<tr>
-				<td><%=e.getId()%></td>
-				<td><%=e.getName()%></td>
-				<td><%=e.getAge()%></td>
-				<td><%=e.getEmail()%></td>
-				<td><%=e.getPhoneNumber()%></td>
-				<td><%=e.getAddress()%></td>
-				<td><%=e.getSalary()%></td>
-				<td><%=e.isActive() ? "Active" : "Inactive"%></td>
-			</tr>
-
-			<%
-			}
-
-			} else {
-
-			List<Employee> list = (List<Employee>) request.getAttribute("list");
-
-			if (list != null && !list.isEmpty()) {
-
-			for (Employee e : list) {
-			%>
-
-			<tr>
-				<td><%=e.getId()%></td>
-				<td><%=e.getName()%></td>
-				<td><%=e.getAge()%></td>
-				<td><%=e.getEmail()%></td>
-				<td><%=e.getPhoneNumber()%></td>
-				<td><%=e.getAddress()%></td>
-				<td><%=e.getSalary()%></td>
-				<td><%=e.isActive() ? "Active" : "Inactive"%></td>
-			</tr>
-
-			<%
-			}
-
-			} else {
-			%>
-
-			<tr>
-				<td colspan="8">No Employees Found.</td>
-			</tr>
-
-			<%
-			}
-			}
-			%>
-
-		</table>
-
-		<div class="flexbtn">
-			<div class="button">
-
-				<a href="select.html"> Go back </a>
-
-			</div>
-
-			<div class="button">
-
-				<a href="index.html"> Go Home </a>
-
-			</div>
-
+		<div class="notion-table-container">
+			<table class="notion-table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Age</th>
+						<th>Email</th>
+						<th>Phone Number</th>
+						<th>Address</th>
+						<th>Salary</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%
+					if ("single".equals(request.getAttribute("type"))) {
+		
+						Employee e = (Employee) request.getAttribute("employee");
+		
+						if (e == null) {
+					%>
+		
+					<tr>
+						<td colspan="8" class="empty-state">
+							<div class="empty-state-icon">📂</div>
+							<p>No Employee Found.</p>
+						</td>
+					</tr>
+		
+					<%
+					} else {
+					%>
+		
+					<tr>
+						<td style="font-weight: 600;"><%=e.getId()%></td>
+						<td style="font-weight: 500; color: var(--color-ink-black);"><%=e.getName()%></td>
+						<td><%=e.getAge()%></td>
+						<td><%=e.getEmail()%></td>
+						<td><%=e.getPhoneNumber()%></td>
+						<td><%=e.getAddress()%></td>
+						<td style="font-family: monospace; font-size: 13px;"><%=e.getSalary()%></td>
+						<td>
+							<% if (e.isActive()) { %>
+								<span class="pill pill-active">Active</span>
+							<% } else { %>
+								<span class="pill pill-inactive">Inactive</span>
+							<% } %>
+						</td>
+					</tr>
+		
+					<%
+					}
+		
+					} else {
+		
+					List<Employee> list = (List<Employee>) request.getAttribute("list");
+		
+					if (list != null && !list.isEmpty()) {
+		
+					for (Employee e : list) {
+					%>
+		
+					<tr>
+						<td style="font-weight: 600;"><%=e.getId()%></td>
+						<td style="font-weight: 500; color: var(--color-ink-black);"><%=e.getName()%></td>
+						<td><%=e.getAge()%></td>
+						<td><%=e.getEmail()%></td>
+						<td><%=e.getPhoneNumber()%></td>
+						<td><%=e.getAddress()%></td>
+						<td style="font-family: monospace; font-size: 13px;"><%=e.getSalary()%></td>
+						<td>
+							<% if (e.isActive()) { %>
+								<span class="pill pill-active">Active</span>
+							<% } else { %>
+								<span class="pill pill-inactive">Inactive</span>
+							<% } %>
+						</td>
+					</tr>
+		
+					<%
+					}
+		
+					} else {
+					%>
+		
+					<tr>
+						<td colspan="8" class="empty-state">
+							<div class="empty-state-icon">📂</div>
+							<p>No Employees Found.</p>
+						</td>
+					</tr>
+		
+					<%
+					}
+					}
+					%>
+				</tbody>
+			</table>
 		</div>
 
-
+		<div class="button-group" style="justify-content: center; max-width: 320px; margin: var(--spacing-28) auto 0 auto;">
+			<a href="select.html" class="btn-outline" style="text-decoration: none; text-align: center;">Go Back</a>
+			<a href="index.html" class="btn-primary" style="text-decoration: none; text-align: center;">Go Home</a>
+		</div>
 
 	</div>
 
