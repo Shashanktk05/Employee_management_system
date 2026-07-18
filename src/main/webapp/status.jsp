@@ -5,107 +5,57 @@
 <head>
 <meta charset="UTF-8">
 <title>Success</title>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css">
 <style>
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-body {
-	height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: linear-gradient(135deg, #4facfe, #00f2fe);
-}
-
-.container {
-	width: 420px;
-	background: white;
-	padding: 35px;
-	text-align: center;
-	border-radius: 12px;
-	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-}
-
-.icon {
-	font-size: 70px;
-	color: #27ae60;
-}
-
-h2 {
-	margin: 15px 0;
-	color: #2c3e50;
-}
-
-p {
-	color: #555;
-	margin-bottom: 25px;
-}
-
-.btn-group {
-	display: flex;
-	gap: 15px;
-}
-
-.btn {
-	flex: 1;
-	padding: 12px;
-	text-decoration: none;
-	color: white;
-	font-weight: bold;
-	border-radius: 6px;
-	transition: .3s;
-}
-
-.insert {
-	background: #27ae60;
-}
-
-.insert:hover {
-	background: #1e8449;
-}
-
-.home {
-	background: #3498db;
-}
-
-.home:hover {
-	background: #2980b9;
-}
+	.status-badge {
+		font-size: 32px;
+		width: 64px;
+		height: 64px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0 auto var(--spacing-20) auto;
+		user-select: none;
+	}
+	.status-success {
+		background-color: #e2f5e9;
+		color: #13783e;
+	}
+	.status-error {
+		background-color: #fdebeb;
+		color: #c93b3b;
+	}
 </style>
 </head>
 <body>
-	<div class="container">
+	<div class="notion-card" style="max-width: 420px; text-align: center;">
 
 		<%
-		if ((boolean) request.getAttribute("status")) {
+		if (request.getAttribute("status") != null && (boolean) request.getAttribute("status")) {
 		%>
-		<div class="icon">✔</div>
-		<h2><%=(String) request.getAttribute("key")%>
-		</h2>
-		<p><%=(String) request.getAttribute("message")%></p>
-		<div class="btn-group">
-			<a href="<%=(String) request.getAttribute("page")%>"
-				class="btn insert"><%=(String) request.getAttribute("button")%>
-			</a> <a href="index.html" class="btn home"> Home </a>
+		<div class="status-badge status-success">✔</div>
+		<h2><%=(String) request.getAttribute("key")%></h2>
+		<p class="editorial-intro" style="margin-bottom: var(--spacing-28);"><%=(String) request.getAttribute("message")%></p>
+		
+		<div class="button-group">
+			<a href="<%=(String) request.getAttribute("page")%>" class="btn-primary" style="text-decoration: none; text-align: center;">
+				<%=(String) request.getAttribute("button")%>
+			</a> 
+			<a href="index.html" class="btn-outline" style="text-decoration: none; text-align: center;">Home</a>
 		</div>
 		<%
 		} else {
 		%>
-
-
-		<div class="icon" style="color: #e74c3c;">✖</div>
-
-		<h2><%=(String) request.getAttribute("key")%>
-		</h2>
-		<p><%=(String) request.getAttribute("message")%></p>
-		<div class="btn-group">
-			<a href="<%=(String) request.getAttribute("page")%>"
-				class="btn insert"><%=(String) request.getAttribute("button")%>
-			</a> <a href="index.html" class="btn home"> Home </a>
+		<div class="status-badge status-error">✖</div>
+		<h2><%=(String) request.getAttribute("key")%></h2>
+		<p class="editorial-intro" style="margin-bottom: var(--spacing-28);"><%=(String) request.getAttribute("message")%></p>
+		
+		<div class="button-group">
+			<a href="<%=(String) request.getAttribute("page")%>" class="btn-danger" style="text-decoration: none; text-align: center;">
+				<%=(String) request.getAttribute("button")%>
+			</a> 
+			<a href="index.html" class="btn-outline" style="text-decoration: none; text-align: center;">Home</a>
 		</div>
 		<%
 		}
