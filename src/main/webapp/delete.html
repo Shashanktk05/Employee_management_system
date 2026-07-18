@@ -1,127 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Delete Employee</title>
-
-<style>
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-body {
-	height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: linear-gradient(135deg, #ff9966, #ff5e62);
-}
-
-.container {
-	width: 500px;
-	background: #fff;
-	padding: 30px;
-	border-radius: 12px;
-	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-	text-align: center;
-}
-
-h2 {
-	color: #c0392b;
-	margin-bottom: 20px;
-}
-
-.button-group {
-	display: flex;
-	gap: 10px;
-	margin-bottom: 25px;
-}
-
-.option-btn {
-	flex: 1;
-	padding: 10px;
-	border: none;
-	border-radius: 6px;
-	background: #3498db;
-	color: white;
-	font-size: 15px;
-	font-weight: bold;
-	cursor: pointer;
-	transition: .3s;
-}
-
-.option-btn:hover {
-	background: #2980b9;
-}
-
-#deleteForm {
-	display: none;
-}
-
-label {
-	display: block;
-	text-align: left;
-	margin-bottom: 6px;
-	font-weight: bold;
-	color: #333;
-}
-
-input {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 6px;
-	font-size: 15px;
-	margin-bottom: 20px;
-	outline: none;
-}
-
-input:focus {
-	border-color: #3498db;
-}
-
-.action-buttons {
-	display: flex;
-	gap: 10px;
-}
-
-.delete-btn, .back-btn {
-	flex: 1;
-	padding: 10px;
-	border: none;
-	border-radius: 6px;
-	color: white;
-	font-size: 16px;
-	font-weight: bold;
-	cursor: pointer;
-	transition: .3s;
-}
-
-.delete-btn {
-	background: #e74c3c;
-}
-
-.delete-btn:hover {
-	background: #c0392b;
-}
-
-.back-btn {
-	background: #2ecc71;
-}
-
-.back-btn:hover {
-	background: #27ae60;
-}
-</style>
+<link rel="stylesheet" href="css/style.css">
 
 <script>
-	function showInput(type) {
-
+	function showInput(type, btn) {
 		document.getElementById("deleteForm").style.display = "block";
 
 		let label = document.getElementById("inputLabel");
@@ -131,57 +17,61 @@ input:focus {
 		hidden.value = type;
 		input.value = "";
 
+		// Manage button active states
+		let buttons = document.querySelectorAll(".options-grid .option-btn");
+		buttons.forEach(function(b) {
+			b.classList.remove("selected");
+		});
+		if (btn) {
+			btn.classList.add("selected");
+		}
+
 		if (type == "id") {
 			label.innerHTML = "Enter Employee ID";
 			input.type = "number";
-			input.placeholder = "Enter Employee ID";
+			input.placeholder = "e.g. 1001";
 		} else if (type == "email") {
 			label.innerHTML = "Enter Employee Email";
 			input.type = "email";
-			input.placeholder = "Enter Employee Email";
+			input.placeholder = "e.g. john@company.com";
 		} else {
 			label.innerHTML = "Enter Employee Phone Number";
 			input.type = "text";
-			input.placeholder = "Enter Employee Phone Number";
+			input.placeholder = "e.g. +1234567890";
 		}
-
 	}
 </script>
-
 </head>
-
 <body>
 
-	<div class="container">
+	<div class="notion-card">
+		<div class="page-icon">🗑️</div>
+		<h2 style="text-align: center; margin-bottom: var(--spacing-4);">Delete Employee</h2>
+		<p class="editorial-intro" style="text-align: center; margin-bottom: var(--spacing-24);">
+			Select the deletion criterion and enter the corresponding value to delete the record.
+		</p>
 
-		<h2>Delete Employee</h2>
-
-		<div class="button-group">
-
-			<button type="button" class="option-btn" onclick="showInput('id')">
-				Delete By ID</button>
-
-			<button type="button" class="option-btn" onclick="showInput('email')">
-				Delete By Email</button>
-
-			<button type="button" class="option-btn" onclick="showInput('phone')">
-				Delete By Phone</button>
-
+		<div class="form-group">
+			<label>Delete Criterion</label>
+			<div class="options-grid">
+				<button type="button" class="option-btn" onclick="showInput('id', this)">Delete By ID</button>
+				<button type="button" class="option-btn" onclick="showInput('email', this)">Delete By Email</button>
+				<button type="button" class="option-btn" onclick="showInput('phone', this)">Delete By Phone</button>
+			</div>
 		</div>
 
-		<form id="deleteForm" action="delete" method="post">
+		<form id="deleteForm" action="delete" method="post" style="display: none; border-top: 1px solid var(--color-border); padding-top: var(--spacing-20); margin-top: var(--spacing-8);">
 
-			<input type="hidden" id="deleteType" name="deleteType"> <label
-				id="inputLabel"></label> <input type="text" id="inputValue"
-				name="value" required>
+			<input type="hidden" id="deleteType" name="deleteType"> 
+			
+			<div class="form-group" style="margin-bottom: var(--spacing-24);">
+				<label id="inputLabel"></label> 
+				<input type="text" id="inputValue" name="value" required>
+			</div>
 
-			<div class="action-buttons">
-
-
-				<button type="button" class="back-btn"
-					onclick="location.href='index.html'">Go Back</button>
-				<button type="submit" class="delete-btn">Delete Employee</button>
-
+			<div class="button-group">
+				<button type="button" class="btn-outline" onclick="location.href='index.html'">Go Back</button>
+				<button type="submit" class="btn-danger">Delete Employee</button>
 			</div>
 
 		</form>
