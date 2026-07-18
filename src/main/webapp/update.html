@@ -1,131 +1,24 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Update Employee</title>
-
-<style>
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-body {
-	height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background: linear-gradient(135deg, #36d1dc, #5b86e5);
-}
-
-.container {
-	width: 650px;
-	background: #fff;
-	padding: 30px;
-	border-radius: 12px;
-	box-shadow: 0 8px 20px rgba(0, 0, 0, .25);
-	text-align: center;
-}
-
-h2 {
-	color: #2c3e50;
-	margin-bottom: 20px;
-}
-
-.id-box {
-	margin-bottom: 25px;
-}
-
-label {
-	display: block;
-	text-align: left;
-	font-weight: bold;
-	margin-bottom: 5px;
-}
-
-input {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 6px;
-	font-size: 15px;
-	outline: none;
-}
-
-input:focus {
-	border-color: #3498db;
-}
-
-.button-group {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 10px;
-	margin-bottom: 20px;
-}
-
-.option-btn {
-	padding: 10px;
-	border: none;
-	border-radius: 6px;
-	background: #3498db;
-	color: white;
-	font-weight: bold;
-	cursor: pointer;
-	transition: .3s;
-}
-
-.option-btn:hover {
-	background: #2980b9;
-}
-
-#updateForm {
-	display: none;
-}
-
-.action-buttons {
-	display: flex;
-	gap: 10px;
-	margin-top: 20px;
-}
-
-.update-btn, .back-btn {
-	flex: 1;
-	padding: 10px;
-	border: none;
-	border-radius: 6px;
-	color: white;
-	font-size: 16px;
-	font-weight: bold;
-	cursor: pointer;
-}
-
-.update-btn {
-	background: #27ae60;
-}
-
-.update-btn:hover {
-	background: #1e8449;
-}
-
-.back-btn {
-	background: #e74c3c;
-}
-
-.back-btn:hover {
-	background: #c0392b;
-}
-</style>
+<link rel="stylesheet" href="css/style.css">
 
 <script>
-	function showInput(type) {
-
+	function showInput(type, btn) {
 		document.getElementById("updateForm").style.display = "block";
-
 		document.getElementById("updateType").value = type;
+
+		// Manage button active states
+		let buttons = document.querySelectorAll(".options-grid .option-btn");
+		buttons.forEach(function(b) {
+			b.classList.remove("selected");
+		});
+		if (btn) {
+			btn.classList.add("selected");
+		}
 
 		let label = document.getElementById("valueLabel");
 		let input = document.getElementById("value");
@@ -133,106 +26,85 @@ input:focus {
 		input.value = "";
 
 		switch (type) {
-
 		case "name":
 			label.innerHTML = "Enter New Name";
 			input.type = "text";
-			input.placeholder = "Enter New Name";
+			input.placeholder = "e.g. John Doe";
 			break;
-
 		case "age":
 			label.innerHTML = "Enter New Age";
 			input.type = "number";
-			input.placeholder = "Enter New Age";
+			input.placeholder = "e.g. 30";
 			break;
-
 		case "email":
 			label.innerHTML = "Enter New Email";
 			input.type = "email";
-			input.placeholder = "Enter New Email";
+			input.placeholder = "e.g. john@company.com";
 			break;
-
 		case "phone":
 			label.innerHTML = "Enter New Phone Number";
 			input.type = "text";
-			input.placeholder = "Enter New Phone Number";
+			input.placeholder = "e.g. +1234567890";
 			break;
-
 		case "address":
 			label.innerHTML = "Enter New Address";
 			input.type = "text";
-			input.placeholder = "Enter New Address";
+			input.placeholder = "e.g. 123 Main St, New York";
 			break;
-
 		case "salary":
 			label.innerHTML = "Enter New Salary";
 			input.type = "number";
-			input.placeholder = "Enter New Salary";
+			input.placeholder = "e.g. 75000.00";
 			break;
-
 		case "isActive":
 			label.innerHTML = "Enter Status (true / false)";
 			input.type = "text";
 			input.placeholder = "true or false";
 			break;
-
 		}
-
 	}
 </script>
-
 </head>
-
 <body>
 
-	<div class="container">
-
-		<h2>Update Employee Details</h2>
+	<div class="notion-card">
+		<div class="page-icon">✏️</div>
+		<h2 style="text-align: center; margin-bottom: var(--spacing-4);">Update Employee Details</h2>
+		<p class="editorial-intro" style="text-align: center; margin-bottom: var(--spacing-24);">
+			Select the field you wish to update and specify the new value.
+		</p>
 
 		<form action="update" method="post">
 
-			<div class="id-box">
+			<div class="form-group" style="margin-bottom: var(--spacing-24);">
+				<label>Employee ID</label> 
+				<input type="number" name="id" placeholder="Enter employee ID to update" required>
+			</div>
 
-				<label>Employee ID</label> <input type="number" name="id"
-					placeholder="Enter Employee ID" required>
+			<div class="form-group">
+				<label>Select Field to Update</label>
+				<div class="options-grid">
+					<button type="button" class="option-btn" onclick="showInput('name', this)">Name</button>
+					<button type="button" class="option-btn" onclick="showInput('age', this)">Age</button>
+					<button type="button" class="option-btn" onclick="showInput('email', this)">Email</button>
+					<button type="button" class="option-btn" onclick="showInput('phone', this)">Phone</button>
+					<button type="button" class="option-btn" onclick="showInput('address', this)">Address</button>
+					<button type="button" class="option-btn" onclick="showInput('salary', this)">Salary</button>
+					<button type="button" class="option-btn" onclick="showInput('isActive', this)">Status</button>
+				</div>
+			</div>
 
+			<div id="updateForm" style="display: none; margin-bottom: var(--spacing-24); border-top: 1px solid var(--color-border); padding-top: var(--spacing-20);">
+				<input type="hidden" name="updateType" id="updateType"> 
+				<div class="form-group">
+					<label id="valueLabel"></label> 
+					<input type="text" name="value" id="value" required>
+				</div>
 			</div>
 
 			<div class="button-group">
-
-				<button type="button" class="option-btn" onclick="showInput('name')">Name</button>
-
-				<button type="button" class="option-btn" onclick="showInput('age')">Age</button>
-
-				<button type="button" class="option-btn"
-					onclick="showInput('email')">Email</button>
-
-				<button type="button" class="option-btn"
-					onclick="showInput('phone')">Phone</button>
-
-				<button type="button" class="option-btn"
-					onclick="showInput('address')">Address</button>
-
-				<button type="button" class="option-btn"
-					onclick="showInput('salary')">Salary</button>
-
-				<button type="button" class="option-btn"
-					onclick="showInput('isActive')">Status</button>
-
-			</div>
-
-			<div id="updateForm">
-
-				<input type="hidden" name="updateType" id="updateType"> <label
-					id="valueLabel"></label> <input type="text" name="value" id="value"
-					required>
-
-			</div>
-
-			<div class="action-buttons">
-				<button type="button" class="back-btn"
-					onclick="location.href='index.html'">Go Back</button>
-				<button type="submit" class="update-btn">Update Employee</button>
+				<button type="button" class="btn-outline" onclick="location.href='index.html'">Go Back</button>
+				<button type="submit" class="btn-primary">Update Employee</button>
 			</div>
 
 		</form>
@@ -241,4 +113,3 @@ input:focus {
 
 </body>
 </html>
-
