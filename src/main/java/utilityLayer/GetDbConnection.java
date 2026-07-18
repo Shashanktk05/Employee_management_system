@@ -11,7 +11,7 @@ public class GetDbConnection {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/fullstackprojects", "root",
-					"Shashanktk@2003");
+					"sql@123");
 			System.out.println("DataBase Connection Successful");
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
