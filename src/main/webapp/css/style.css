@@ -55,7 +55,8 @@
 }
 
 body {
-  background-color: var(--color-paper-warmth);
+  background: linear-gradient(135deg, #fefbfa 0%, #f4e9df 100%);
+  background-attachment: fixed;
   color: var(--color-charcoal);
   min-height: 100vh;
   display: flex;
@@ -115,7 +116,8 @@ p, .body-text {
   padding: var(--spacing-32) var(--spacing-24);
   width: 100%;
   max-width: 580px;
-  transition: border-color 0.2s ease;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.01);
+  transition: all 0.2s ease;
 }
 
 .notion-card-wide {
