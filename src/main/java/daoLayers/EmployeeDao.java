@@ -192,7 +192,7 @@ public class EmployeeDao {
 		return false;
 	}
 
-	public Employee selectDetailsById(int id) {
+	public  Employee selectDetailsById(int id) {
 		String query = "SELECT * FROM `EMPLOYEE` WHERE `ID`=?";
 		Employee emp = null;
 		PreparedStatement pstmt = null;
